@@ -11,4 +11,8 @@ class Station extends Model
     /** @use HasFactory<\Database\Factories\StationFactory> */
     use HasFactory;
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

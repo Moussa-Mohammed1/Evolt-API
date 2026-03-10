@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stations', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('zone_geographique');
-            $table->enum('status', ['available', 'unavailable'])->default('available');
-            $table->string('connector_type');
-            $table->decimal('puissance_kw')->default(0);
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
+            $table->string('status')->default('pending');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('station_id')->constrained('stations');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stations');
+        Schema::dropIfExists('reservations');
     }
 };

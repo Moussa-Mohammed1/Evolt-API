@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Station;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,8 @@ class StationController extends Controller
      */
     public function index()
     {
-        //
+        $stations = Station::all();
+        return response()->json($stations);
     }
 
     /**

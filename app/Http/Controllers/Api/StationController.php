@@ -23,7 +23,9 @@ class StationController extends Controller
      */
     public function store(StoreStationRequest $request)
     {
-        //
+        $station = Station::create($request->validated());
+
+        return response()->json($station, 201);
     }
 
     /**

@@ -43,7 +43,9 @@ class StationController extends Controller
      */
     public function update(UpdateStationRequest $request, Station $station)
     {
-        //
+        $station->update($request->validated());
+
+        return response()->json($station->fresh());
     }
 
     /**
@@ -51,6 +53,14 @@ class StationController extends Controller
      */
     public function destroy(Station $station)
     {
-        //
+        if ($station->reservations()->exists()) {
+            return response()->json([
+                'message' => 'Station cannot be deleted while reservations exist.',
+            ], 409);
+        }
+
+        $station->delete();
+
+        return response()->json(status: 204);
     }
 }

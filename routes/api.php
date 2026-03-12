@@ -17,6 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/stations', [StationController::class, 'store']);
         Route::patch('/stations/{station}', [StationController::class, 'update']);
         Route::delete('/stations/{station}', [StationController::class, 'destroy']);
+        Route::get('/admin/stats', [StationController::class, 'globalStats']);
+        Route::get('/stations/{station}/stats', [StationController::class, 'stats']);
     });
 
     Route::get('/reservations', [ReservationController::class, 'index']);

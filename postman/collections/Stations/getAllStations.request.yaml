@@ -1,5 +1,4 @@
 $kind: http-request
-name: getAllStations
 url: http://127.0.0.1:8000/api/stations
 method: GET
-order: 1773155680855
+order: 1000

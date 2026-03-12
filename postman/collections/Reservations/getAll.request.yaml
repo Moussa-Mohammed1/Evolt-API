@@ -1,10 +1,7 @@
 $kind: http-request
-url: http://127.0.0.1:8000/api/stations
-method: POST
+url: http://127.0.0.1:8000/api/reservations
+method: GET
 headers:
   Accept: application/json
   Authorization: bearer 15|pKPTbGRox416PFG89RabjdRI6Lo3Nf5JKwDsWQd3967e7b84
-body:
-  type: json
-  content: ""
-order: 3000
+order: 2000

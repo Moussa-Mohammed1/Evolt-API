@@ -64,7 +64,7 @@ class StationController extends Controller
 
         $station->delete();
 
-        return response()->json(status: 204);
+        return response()->json(['message' => 'Status delete successfully'], status: 204);
     }
 
     /**

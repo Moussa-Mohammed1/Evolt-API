@@ -1,5 +1,9 @@
 $kind: http-request
-name: create
-url: ""
-method: GET
-order: null
+url: http://127.0.0.1:8000/api/reservations
+method: POST
+headers:
+  Authorization: bearer 14|NXV4MzTfK2X9wcwpmuhB0Zj8Bx3s7uHOkh7mLTFe5d02074b
+body:
+  type: json
+  content: ""
+order: 3000

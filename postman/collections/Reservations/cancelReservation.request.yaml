@@ -1,0 +1,8 @@
+$kind: http-request
+name: cancelReservation
+url: http://127.0.0.1:8000/api/reservations/2
+method: DELETE
+headers:
+  Authorization: bearer 16|4GkRMkoDK3eff6BmK8DP6wyRl5K5w0xdLnrBGuqi092e67ea
+  Accept: application/json
+order: 3709392435282448

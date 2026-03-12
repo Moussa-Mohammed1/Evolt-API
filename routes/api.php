@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ChargingSessionController;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\StationController;
 use Illuminate\Http\Request;
@@ -11,11 +12,13 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/stations', [StationController::class, 'index']);
  
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/charging-sessions/history', [ChargingSessionController::class, 'history']);
+
     Route::get('/reservations', [ReservationController::class, 'index']);
     Route::post('/reservations', [ReservationController::class, 'store']);
     Route::patch('/reservations/{reservation}', [ReservationController::class, 'update']);
     Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy']);
-
+    Route::post('/charge', [ChargingSessionController::class, 'store']);
     Route::get('/stations/{station}', [StationController::class, 'show']);
     Route::get('/user', function (Request $request) {
         return $request->user();

@@ -13,6 +13,11 @@ Route::get('/stations', [StationController::class, 'index']);
  
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/charging-sessions/history', [ChargingSessionController::class, 'history']);
+    Route::middleware('can:manage-stations')->group(function () {
+        Route::post('/stations', [StationController::class, 'store']);
+        Route::patch('/stations/{station}', [StationController::class, 'update']);
+        Route::delete('/stations/{station}', [StationController::class, 'destroy']);
+    });
 
     Route::get('/reservations', [ReservationController::class, 'index']);
     Route::post('/reservations', [ReservationController::class, 'store']);

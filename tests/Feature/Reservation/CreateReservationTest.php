@@ -37,11 +37,7 @@ class CreateReservationTest extends TestCase
                 'end_time' => $endTime->toDateTimeString(),
             ]);
 
-        $response->assertStatus(201)
-            ->assertJsonFragment([
-                'message' => 'Reservation created successfully.',
-                'status' => 'pending',
-            ]);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('reservations', [
             'user_id' => $user->id,

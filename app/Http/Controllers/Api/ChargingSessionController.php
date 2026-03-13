@@ -33,9 +33,12 @@ class ChargingSessionController extends Controller
     }
     public function history(Request $request): JsonResponse
     {
+        $todayStart = now()->startOfDay();
+
         $sessions = ChargingSession::query()
             ->whereHas('reservation', function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id);
+                $query->where('user_id', $request->user()->id)
+                    ->where('start_time', '<=', now()->endOfDay());
             })
             ->with(['reservation.station'])
             ->get()
@@ -44,10 +47,25 @@ class ChargingSessionController extends Controller
             )
             ->values();
 
+        $currentSessions = $sessions
+            ->filter(static fn (ChargingSession $session): bool =>
+                $session->reservation?->start_time?->isToday() ?? false
+            )
+            ->values();
+
+        $pastSessions = $sessions
+            ->filter(static fn (ChargingSession $session): bool =>
+                $session->reservation?->start_time?->lt($todayStart) ?? false
+            )
+            ->values();
+
         return response()->json([
-            'charging_sessions' => $sessions,
+            'current_sessions' => $currentSessions,
+            'past_sessions' => $pastSessions,
             'meta' => [
-                'total_sessions' => $sessions->count(),
+                'total_sessions' => $currentSessions->count() + $pastSessions->count(),
+                'current_sessions_count' => $currentSessions->count(),
+                'past_sessions_count' => $pastSessions->count(),
             ],
         ]);
     }

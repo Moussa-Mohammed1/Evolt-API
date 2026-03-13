@@ -41,7 +41,6 @@ class ReleaseStationAfterReservation implements ShouldQueue
         if (now()->lt($reservation->end_time)) {
             $secondsUntilEnd = max(1, Carbon::now()->diffInSeconds($reservation->end_time, false));
             $this->release($secondsUntilEnd);
-
             return;
         }
 
